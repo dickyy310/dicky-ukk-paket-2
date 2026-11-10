@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dicky UKK Paket 2 — Panduan Praktik TKJ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="progress-bar" class="progress-bar"></div>
+<button id="menu-btn" class="menu-btn" aria-label="Menu">&#9776;</button>
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+<div class="layout">
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <span class="brand-mark" aria-hidden="true">DK</span>
+        <span>Dicky UKK Paket 2</span>
+        <span class="sidebar-brand-badge">MODUL DIGITAL</span>
+      </div>
+      <div class="sidebar-search-box">
+        <input type="text" id="sidebar-search" class="sidebar-search-input" placeholder="Cari langkah..." aria-label="Cari navigasi">
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#bagian-1" class="nav-group-title">Bagian 1 — MikroTik &amp; Client</a>
+      <ul class="nav-sub-list">
+        <li><a href="#sub-1-1" class="nav-sub-link">1.1 IP Address Router</a></li>
+        <li><a href="#sub-1-2" class="nav-sub-link">1.2 NAT &amp; Port Forwarding</a></li>
+        <li><a href="#sub-1-3" class="nav-sub-link">1.3 DHCP Server Lokal</a></li>
+        <li><a href="#sub-1-4" class="nav-sub-link">1.4 Routing &amp; DNS</a></li>
+        <li><a href="#sub-1-5" class="nav-sub-link">1.5 Uji Koneksi Client</a></li>
+      </ul>
+
+      <a href="#bagian-2" class="nav-group-title">Bagian 2 — Setup VM VirtualBox</a>
+
+      <a href="#bagian-3" class="nav-group-title">Bagian 3 — Instalasi OS Debian</a>
+      <ul class="nav-sub-list">
+        <li><a href="#sub-3-1" class="nav-sub-link">3.1 Bahasa &amp; Keyboard</a></li>
+        <li><a href="#sub-3-2" class="nav-sub-link">3.2 Jaringan &amp; Hostname</a></li>
+        <li><a href="#sub-3-3" class="nav-sub-link">3.3 Akun &amp; Timezone</a></li>
+        <li><a href="#sub-3-4" class="nav-sub-link">3.4 Partisi &amp; GRUB</a></li>
+      </ul>
+
+      <a href="#bagian-4" class="nav-group-title">Bagian 4 — Setup Awal &amp; Clone</a>
+
+      <a href="#bagian-5" class="nav-group-title">Bagian 5 — Database Server</a>
+
+      <a href="#bagian-6" class="nav-group-title">Bagian 6 — Web Server &amp; Moodle</a>
+      <ul class="nav-sub-list">
+        <li><a href="#sub-6-1" class="nav-sub-link">6.1 Paket &amp; Source Moodle</a></li>
+        <li><a href="#sub-6-2" class="nav-sub-link">6.2 Apache2 &amp; php.ini</a></li>
+        <li><a href="#sub-6-3" class="nav-sub-link">6.3 Web Installer Moodle</a></li>
+        <li><a href="#sub-6-4" class="nav-sub-link">6.4 Course &amp; User Enrol</a></li>
+        <li><a href="#sub-6-5" class="nav-sub-link">6.5 Port Forwarding 9090</a></li>
+      </ul>
+
+      <a href="#bagian-7" class="nav-group-title">Bagian 7 — Backup &amp; Cronjob</a>
+      <ul class="nav-sub-list">
+        <li><a href="#sub-7-1" class="nav-sub-link">7.1 Backup Web Server</a></li>
+        <li><a href="#sub-7-2" class="nav-sub-link">7.2 Backup Database Server</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+    <header class="learning-topbar">
+      <a class="learning-brand" href="#beranda"><span class="learning-brand-mark">DK</span><span>Dicky UKK Paket 2</span></a>
+      <span class="topbar-label">PUSAT BELAJAR TKJ</span>
+    </header>
+
+    <section class="learning-welcome" id="beranda">
+      <div class="welcome-copy">
+        <span class="welcome-eyebrow">RUANG BELAJAR DIGITAL</span>
+        <h1>Panduan Praktik UKK TKJ Paket 2</h1>
+        <p>Pelajari setiap tahap konfigurasi jaringan dan server melalui modul yang tersusun secara bertahap.</p>
+        <a class="welcome-cta" href="#daftar-modul">Jelajahi materi <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="welcome-art" aria-hidden="true">
+        <svg class="topology-illustration" viewBox="0 0 320 250" role="img" aria-label="Ilustrasi topologi jaringan">
+          <ellipse cx="164" cy="124" rx="139" ry="105" fill="none" stroke="#9fbea5" stroke-width="2" transform="rotate(-18 164 124)" />
+          <ellipse cx="164" cy="124" rx="112" ry="88" fill="none" stroke="#e0a16f" stroke-width="2" transform="rotate(24 164 124)" />
+          <g fill="none" stroke="#6d9e81" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M160 119 L160 48 M128 132 L67 132 M192 132 L254 132 M160 153 L160 205" />
+            <path d="M153 55 L160 47 L167 55 M60 125 L68 132 L60 139 M247 125 L255 132 L247 139 M153 198 L160 206 L167 198" />
+          </g>
+          <g transform="translate(119 93)">
+            <rect x="0" y="0" width="82" height="68" rx="18" fill="#275f4b" />
+            <rect x="14" y="15" width="54" height="38" rx="8" fill="#e8f3e7" opacity=".16" />
+            <path d="M23 27h36M23 36h36M23 45h36" stroke="#e8f3e7" stroke-width="3" stroke-linecap="round" />
+            <circle cx="18" cy="27" r="2.5" fill="#f3d5b7"/><circle cx="18" cy="36" r="2.5" fill="#f3d5b7"/><circle cx="18" cy="45" r="2.5" fill="#f3d5b7"/>
+          </g>
+          <g transform="translate(137 12)">
+            <rect width="46" height="34" rx="8" fill="#f7fbf5" stroke="#8fb69a" stroke-width="2"/>
+            <path d="M10 10h26M10 17h26M10 24h26" stroke="#34745a" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="37" cy="10" r="2" fill="#e0a16f"/>
+          </g>
+          <g transform="translate(25 111)">
+            <rect width="42" height="42" rx="11" fill="#f7fbf5" stroke="#8fb69a" stroke-width="2"/>
+            <path d="M10 13h22M10 21h22M10 29h22" stroke="#34745a" stroke-width="2.5" stroke-linecap="round"/>
+          </g>
+          <g transform="translate(254 111)">
+            <rect width="42" height="42" rx="11" fill="#f7fbf5" stroke="#8fb69a" stroke-width="2"/>
+            <path d="M10 19q11-12 22 0M14 23q7-7 14 0" fill="none" stroke="#34745a" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="21" cy="29" r="2.5" fill="#e0a16f"/>
+          </g>
+          <g transform="translate(139 205)">
+            <rect width="42" height="28" rx="5" fill="#f7fbf5" stroke="#8fb69a" stroke-width="2"/>
+            <path d="M-4 32h50l-5-5H1z" fill="#d6e8d8" stroke="#8fb69a" stroke-width="1.5"/>
+          </g>
+        </svg>
+        <div class="art-chip">NETWORK<br>TOPOLOGY</div>
+      </div>
+    </section>
+
+    <section class="learning-overview" id="daftar-modul">
+      <div class="overview-heading">
+        <div><span class="section-eyebrow">MULAI BELAJAR</span><h2>Jelajahi Modul</h2><p>Pilih bagian yang ingin lu pelajari.</p></div>
+        <label class="module-search-wrap"><span aria-hidden="true">⌕</span><input id="module-search" type="search" placeholder="Cari modul..." aria-label="Cari modul"></label>
+      </div>
+      <div class="module-grid">
+        <a class="module-card module-green" href="#bagian-1" data-search="mikrotik client router ip address nat port forwarding dhcp routing dns"><span class="module-number">01</span><span class="module-icon">⌁</span><span class="module-name">MikroTik &amp; Client</span><span class="module-description">Konfigurasi router, jaringan lokal, dan koneksi client.</span><span class="module-link">Buka modul <b>↗</b></span></a>
+        <a class="module-card module-orange" href="#bagian-2" data-search="virtualbox mesin virtual vm setup"><span class="module-number">02</span><span class="module-icon">▣</span><span class="module-name">Setup VM VirtualBox</span><span class="module-description">Persiapan dan konfigurasi mesin virtual.</span><span class="module-link">Buka modul <b>↗</b></span></a>
+        <a class="module-card module-blue" href="#bagian-3" data-search="debian instalasi sistem operasi debian server"><span class="module-number">03</span><span class="module-icon">⌘</span><span class="module-name">Instalasi OS Debian</span><span class="module-description">Instalasi sistem operasi dan pengaturan awal server.</span><span class="module-link">Buka modul <b>↗</b></span></a>
+        <a class="module-card module-purple" href="#bagian-4" data-search="setup awal debian repository clone cloning"><span class="module-number">04</span><span class="module-icon">⟳</span><span class="module-name">Setup Awal &amp; Clone</span><span class="module-description">Persiapan sistem, repositori, dan cloning VM.</span><span class="module-link">Buka modul <b>↗</b></span></a>
+        <a class="module-card module-yellow" href="#bagian-5" data-search="database server mariadb"><span class="module-number">05</span><span class="module-icon">▤</span><span class="module-name">Database Server</span><span class="module-description">Instalasi dan konfigurasi database MariaDB.</span><span class="module-link">Buka modul <b>↗</b></span></a>
+        <a class="module-card module-teal" href="#bagian-6" data-search="web server moodle apache php lms"><span class="module-number">06</span><span class="module-icon">◎</span><span class="module-name">Web Server &amp; Moodle</span><span class="module-description">Menyiapkan layanan web dan platform Moodle.</span><span class="module-link">Buka modul <b>↗</b></span></a>
+        <a class="module-card module-pink" href="#bagian-7" data-search="backup cronjob bash script otomatisasi"><span class="module-number">07</span><span class="module-icon">◷</span><span class="module-name">Backup &amp; Cronjob</span><span class="module-description">Otomatisasi pencadangan web server dan database.</span><span class="module-link">Buka modul <b>↗</b></span></a>
+      </div>
+      <p class="module-empty" id="module-empty" hidden>Modul yang dicari tidak ditemukan.</p>
+    </section>
+
+    <!-- Technical Reference & Topology Card -->
+    <section class="spec-card">
+      <div class="spec-card-header">
+        <div class="spec-card-title">Matriks Topologi &amp; Alokasi Pengalamatan Jaringan</div>
+        <span class="spec-card-badge">Spesifikasi Ujian</span>
+      </div>
+      <div class="topology-table-wrap">
+        <table class="topology-table">
+          <thead>
+            <tr>
+              <th>Interface / Perangkat</th>
+              <th>Fungsi Jaringan</th>
+              <th>Alamat IP / Subnet</th>
+              <th>Gateway / DNS</th>
+              <th>Keterangan Port</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>ether1</code> (Router)</td>
+              <td>Jalur Internet ISP</td>
+              <td><code>10.10.10.xx/24</code></td>
+              <td>GW: <code>10.10.10.254</code> | DNS: <code>8.8.8.8</code></td>
+              <td>NAT Masquerade &amp; Dst-NAT <code>9090</code></td>
+            </tr>
+            <tr>
+              <td><code>ether2</code> (Router)</td>
+              <td>Jaringan Server VM</td>
+              <td><code>192.168.xx.1/29</code></td>
+              <td>-</td>
+              <td>Segment Server Private Cloud</td>
+            </tr>
+            <tr>
+              <td><code>web-xx</code> (VM Web)</td>
+              <td>LMS Moodle Web Server</td>
+              <td><code>192.168.xx.2/29</code></td>
+              <td>GW: <code>192.168.xx.1</code></td>
+              <td>HTTP Port <code>80</code> (Internal)</td>
+            </tr>
+            <tr>
+              <td><code>db_server</code> (VM DB)</td>
+              <td>MariaDB Server</td>
+              <td><code>192.168.xx.3/29</code></td>
+              <td>GW: <code>192.168.xx.1</code></td>
+              <td>MySQL Port <code>3306</code> (Bind <code>0.0.0.0</code>)</td>
+            </tr>
+            <tr>
+              <td><code>ether3</code> (Router)</td>
+              <td>Jaringan Klien Lokal</td>
+              <td><code>192.168.100.1/24</code></td>
+              <td>-</td>
+              <td>DHCP Server: <code>192.168.100.2 - 50</code></td>
+            </tr>
+            <tr>
+              <td>PC Client</td>
+              <td>Komputer Penguji / Siswa</td>
+              <td><code>192.168.100.xx/24</code></td>
+              <td>GW: <code>192.168.100.1</code></td>
+              <td>Static / DHCP Client</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout callout-info">
+        <strong>PENTING:</strong> Ganti variabel <code>xx</code> pada alamat IP dan nama mesin dengan nomor meja / nomor absen ujian Anda (contoh: bila nomor meja <strong>14</strong>, maka IP ether1 adalah <code>10.10.10.14/24</code>).
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- BAGIAN 1 -->
+    <!-- ============================================================ -->
+    <h2 id="bagian-1">Bagian 1: Konfigurasi Router MikroTik &amp; Client</h2>
+
+    <h3 id="sub-1-1">1.1 Login &amp; Konfigurasi IP Address Router</h3>
+
+    <div class="step">
+      <span class="step-badge">Langkah 1</span>
+      <p>Masuk ke panel konfigurasi router MikroTik menggunakan aplikasi WinBox.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/1-masuk-ke-panel-winbox.png" alt="Masuk ke panel WinBox" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 2</span>
+      <p>Membuka menu <strong>IP</strong> pada sidebar kiri WinBox.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/2-ip.png" alt="Menu IP WinBox" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 3</span>
+      <p>Memilih submenu <strong>Addresses</strong> dan menekan ikon tambah (<code>+</code>) untuk mulai mengatur alamat IP.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/3-setting-address.png" alt="Submenu Addresses" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 4</span>
+      <p>Mengatur IP pada interface <code>ether1</code> (jalur sumber internet ISP: <code>10.10.10.xx/24</code>).</p>
+      <figure>
+        <img src="assets/1-Mikrotik/4-setting-ether1.png" alt="Setting ether1" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 5</span>
+      <p>Mengatur IP pada interface <code>ether2</code> (jalur menuju jaringan VirtualBox VM: <code>192.168.xx.1/29</code>).</p>
+      <figure>
+        <img src="assets/1-Mikrotik/5-setting-ether2.png" alt="Setting ether2" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 6</span>
+      <p>Mengatur IP pada interface <code>ether3</code> (jalur jaringan lokal <code>int-client</code>: <code>192.168.100.1/24</code>).</p>
+      <figure>
+        <img src="assets/1-Mikrotik/6-setting-ether-3.png" alt="Setting ether3" loading="lazy">
+      </figure>
+    </div>
+
+    <h3 id="sub-1-2">1.2 Konfigurasi Firewall NAT (Internet Gateway &amp; Port Forwarding LMS)</h3>
+
+    <div class="step">
+      <span class="step-badge">Langkah 7</span>
+      <p>Membuka menu <strong>IP &gt; Firewall</strong>.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/7-firewall.png" alt="Menu Firewall" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 8</span>
+      <p>Beralih ke tab <strong>NAT</strong> dan menambahkan rule baru (<code>+</code>).</p>
+      <figure>
+        <img src="assets/1-Mikrotik/8-nat.png" alt="Tab NAT" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 9</span>
+      <p>Pada tab General, memilih <strong>Chain: srcnat</strong> dan <strong>Out. Interface: ether1</strong> untuk akses internet gateway.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/9-srcnat-ether1.png" alt="srcnat ether1" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 10</span>
+      <p>Pada tab Action, memilih <strong>Action: masquerade</strong> lalu klik OK.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/10-masquerade.png" alt="Action masquerade" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 11</span>
+      <p>Membuat rule Port Forwarding (Destination NAT) dengan <strong>Chain: dstnat</strong> pada <code>ether1</code> (menerima akses luar pada IP ISP port <code>9090</code>) dan protocol tcp(6) dengan in interface ether 1.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/11-dstnat-ether1.png" alt="dstnat ether1" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 12</span>
+      <p>Pada tab Action, memilih <strong>Action: dst-nat</strong> dan mengarahkan <strong>To Addresses</strong> ke IP VM Web Server (<code>192.168.xx.2</code>) dengan <strong>To Ports: 80</strong>.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/12-dstnat-port80.png" alt="dst-nat ke port 80" loading="lazy">
+      </figure>
+    </div>
+
+    <h3 id="sub-1-3">1.3 Konfigurasi DHCP Server untuk Jaringan Lokal</h3>
+
+    <div class="step">
+      <span class="step-badge">Langkah 13</span>
+      <p>Membuka menu <strong>IP &gt; DHCP Server</strong>.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/13-dhcp-server.png" alt="Menu DHCP Server" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 14</span>
+      <p>Tampilan jendela DHCP Server, lalu menekan tombol <strong>DHCP Setup</strong>.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/14-dhcp-server-2.png" alt="DHCP Setup button" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 15</span>
+      <p>Memilih interface jaringan lokal (<code>ether3</code> / <code>int-client</code>) pada wizard DHCP Setup.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/15-dhcp-setup.png" alt="DHCP Setup wizard" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 16</span>
+      <p>Menentukan rentang alamat IP (Addresses to Give Out) yang akan dibagikan ke client.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/16-ip-address-give-out.png" alt="Addresses to give out" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 17</span>
+      <p>Menentukan DNS Server untuk client DHCP hingga proses setup selesai.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/17-dns-dhcp.png" alt="DNS untuk DHCP" loading="lazy">
+      </figure>
+    </div>
+
+    <h3 id="sub-1-4">1.4 Konfigurasi Routing (Gateway) &amp; DNS</h3>
+
+    <div class="step">
+      <span class="step-badge">Langkah 18</span>
+      <p>Membuka menu <strong>IP &gt; Routes</strong>.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/18-route.png" alt="Menu Routes" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 19</span>
+      <p>Tampilan daftar tabel routing dan menekan tombol tambah (<code>+</code>).</p>
+      <figure>
+        <img src="assets/1-Mikrotik/19-route-tampilan.png" alt="Daftar route" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 20</span>
+      <p>Mengisi <strong>Gateway</strong> dengan alamat IP gateway dari ISP pada jalur <code>ether1</code>.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/20-tambahkan-gateway.png" alt="Tambahkan gateway" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 21</span>
+      <p>Menyimpan konfigurasi route dan memastikan statusnya aktif (<strong>AS</strong>, Active Static).</p>
+      <figure>
+        <img src="assets/1-Mikrotik/21-save.png" alt="Save route" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 22</span>
+      <p>Membuka menu <strong>IP &gt; DNS</strong>.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/22-isi-dns.png" alt="Menu DNS" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 23</span>
+      <p>Mengisi <strong>Servers</strong> dengan DNS Google (<code>8.8.8.8</code>), mencentang <strong>Allow Remote Requests</strong>, lalu klik OK.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/23-dns-google.png" alt="DNS Google 8.8.8.8" loading="lazy">
+      </figure>
+    </div>
+
+    <h3 id="sub-1-5">1.5 Konfigurasi Jaringan PC Client &amp; Uji Konektivitas</h3>
+
+    <div class="step">
+      <span class="step-badge">Langkah 24</span>
+      <p>Membuka kotak dialog Run (<code>Win + R</code>) di PC Client dan mengetikkan <code>ncpa.cpl</code>.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/24-ncpa-cpl.png" alt="Run ncpa.cpl" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 25</span>
+      <p>Memilih adapter Ethernet pada jendela Network Connections.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/25-adapter.png" alt="Pilih adapter Ethernet" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 26</span>
+      <p>Membuka jendela Status/Properties pada adapter Ethernet.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/26-properties.png" alt="Properties adapter" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 27</span>
+      <p>Memilih <strong>Internet Protocol Version 4 (TCP/IPv4)</strong> lalu klik Properties.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/27-ip-manual.png" alt="TCP/IPv4 Properties" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 28</span>
+      <p>Mengatur konfigurasi IP pada sisi client dan menekan OK.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/28-static-ip.png" alt="Static IP client" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 29</span>
+      <p>Memastikan status jaringan pada PC client sudah terhubung (Internet access).</p>
+      <figure>
+        <img src="assets/1-Mikrotik/29-network-access.png" alt="Network access" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 30</span>
+      <p>Kembali ke WinBox dan memilih menu <strong>New Terminal</strong>.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/30-buka-terminal.png" alt="Buka terminal WinBox" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 31</span>
+      <p>Tampilan awal jendela CLI Terminal MikroTik.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/31-terminal.png" alt="Terminal MikroTik" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 32</span>
+      <p>Melakukan pengujian konektivitas jaringan menggunakan perintah <code>ping</code> dari terminal dan memastikan hasilnya reply.</p>
+      <figure>
+        <img src="assets/1-Mikrotik/32-ping.png" alt="Ping test" loading="lazy">
+      </figure>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- BAGIAN 2 -->
+    <!-- ============================================================ -->
+    <h2 id="bagian-2">Bagian 2: Pembuatan &amp; Konfigurasi Mesin Virtual di VirtualBox</h2>
+
+    <div class="step">
+      <span class="step-badge">Langkah 1</span>
+      <p>Membuka aplikasi Oracle VM VirtualBox dan menekan tombol <strong>New</strong> untuk mulai membuat mesin virtual.</p>
+      <figure>
+        <img src="assets/2-Setup_vm/1-virtual_box.png" alt="VirtualBox New" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 2</span>
+      <p>Menentukan nama VM (<code>web-xx</code>), memilih file <strong>ISO Debian</strong>, serta mengatur alokasi spesifikasi minimal <strong>RAM 2 GB (2048 MB)</strong> dan <strong>1 CPU</strong>.</p>
+      <figure>
+        <img src="assets/2-Setup_vm/2-pilih-iso.png" alt="Pilih ISO dan spesifikasi VM" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 3</span>
+      <p>Tampilan mesin virtual pada dashboard VirtualBox setelah berhasil dibuat.</p>
+      <figure>
+        <img src="assets/2-Setup_vm/3-vm-jadi.png" alt="VM berhasil dibuat" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 4</span>
+      <p>Membuka menu <strong>Settings &gt; Network</strong>, lalu mengubah mode Attached to menjadi <strong>Bridged Adapter</strong> agar VM berada satu segmen jaringan dengan router (<code>192.168.xx.0/29</code>).</p>
+      <figure>
+        <img src="assets/2-Setup_vm/4-setting-bridge-adapter.png" alt="Bridged Adapter setting" loading="lazy">
+      </figure>
+    </div>
+
+    <!-- Placeholder anchors Bagian 3-7 -->
+    <!-- ============================================================ -->
+    <!-- BAGIAN 3 -->
+    <!-- ============================================================ -->
+    <h2 id="bagian-3">Bagian 3: Instalasi Sistem Operasi Debian Server</h2>
+
+    <h3 id="sub-3-1">3.1 Pemilihan Bahasa, Lokasi &amp; Keyboard</h3>
+
+    <div class="step">
+      <span class="step-badge">Langkah 1</span>
+      <p>Memilih menu <strong>Install</strong> pada layar awal boot ISO Debian.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/1-install.png" alt="Menu Install Debian" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 2</span>
+      <p>Memilih bahasa <strong>English</strong>.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/2-bahasa.png" alt="Pilih bahasa English" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 3</span>
+      <p>Memilih opsi <strong>other</strong> pada pemilihan lokasi.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/3-lokasi.png" alt="Pilih other" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 4</span>
+      <p>Memilih kawasan <strong>Asia</strong>.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/4-lokasi-2.png" alt="Pilih Asia" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 5</span>
+      <p>Memilih negara <strong>Indonesia</strong>.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/5-lokasi-3.png" alt="Pilih Indonesia" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 6</span>
+      <p>Memilih lokalisasi default (<strong>United States - en_US.UTF-8</strong>).</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/6-locales.png" alt="Locale en_US.UTF-8" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 7</span>
+      <p>Memilih tata letak keyboard (<strong>American English</strong>).</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/7-keyboard.png" alt="Keyboard American English" loading="lazy">
+      </figure>
+    </div>
+
+    <h3 id="sub-3-2">3.2 Konfigurasi Jaringan Statis &amp; Hostname</h3>
+
+    <div class="step">
+      <span class="step-badge">Langkah 8</span>
+      <p>Memilih pengaturan jaringan secara manual.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/8-ip-static-1.png" alt="Pengaturan jaringan manual" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 9</span>
+      <p>Memilih opsi <strong>Configure network manually</strong>.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/9-ip-static-2.png" alt="Configure network manually" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 10</span>
+      <p>Mengisi alamat IP statis VM Web Server (<code>192.168.xx.2</code>).</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/10-ip-static-web.png" alt="IP statis web server" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 11</span>
+      <p>Mengisi Netmask <code>255.255.255.248</code> (<code>/29</code>).</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/11-netmask-248.png" alt="Netmask /29" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 12</span>
+      <p>Mengisi IP Gateway <code>192.168.xx.1</code>.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/12-gateway-xx.1.png" alt="Gateway" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 13</span>
+      <p>Mengisi DNS Server dengan <code>8.8.8.8</code>.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/13-dns-8888.png" alt="DNS 8.8.8.8" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 14</span>
+      <p>Mengisi Hostname (<code>web-xx</code>).</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/14-hostname.png" alt="Hostname web-xx" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 15</span>
+      <p>Mengosongkan bagian Domain name lalu klik Continue.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/15-domain-name-kosongi.png" alt="Domain name kosong" loading="lazy">
+      </figure>
+    </div>
+
+    <h3 id="sub-3-3">3.3 Pengaturan Akun Root, User &amp; Zona Waktu</h3>
+
+    <div class="step">
+      <span class="step-badge">Langkah 16</span>
+      <p>Memasukkan password akun <code>root</code>.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/16-root-pass.png" alt="Password root" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 17</span>
+      <p>Memasukkan ulang password <code>root</code>.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/17-re-enter-root.png" alt="Re-enter password root" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 18</span>
+      <p>Mengisi nama lengkap pengguna baru.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/18-full-name.png" alt="Full name user baru" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 19</span>
+      <p>Mengisi username pengguna baru.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/19-username.png" alt="Username" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 20</span>
+      <p>Memasukkan password pengguna baru.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/20-user-pass.png" alt="Password user baru" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 21</span>
+      <p>Memasukkan ulang password pengguna baru.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/21-re-enter-usr-pass.png" alt="Re-enter password user" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 22</span>
+      <p>Memilih zona waktu Indonesia.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/22-clock.png" alt="Zona waktu Indonesia" loading="lazy">
+      </figure>
+    </div>
+
+    <h3 id="sub-3-4">3.4 Partisi Disk, Software &amp; Boot Loader GRUB</h3>
+
+    <div class="step">
+      <span class="step-badge">Langkah 23</span>
+      <p>Memilih metode <strong>Guided - use entire disk</strong>.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/23-guided-partition.png" alt="Guided partition" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 24</span>
+      <p>Memilih disk virtual yang akan dipartisi.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/24-select-partition-disk.png" alt="Select disk" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 25</span>
+      <p>Memilih <strong>All files in one partition</strong>.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/25-all-in-one-partition.png" alt="All in one partition" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 26</span>
+      <p>Memilih <strong>Finish partitioning and write changes to disk</strong>.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/26-finish-part.png" alt="Finish partitioning" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 27</span>
+      <p>Memilih <strong>Yes</strong> untuk menyimpan partisi.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/27-writing-disk.png" alt="Write changes to disk" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 28</span>
+      <p>Memilih <strong>No</strong> saat ditanya media instalasi tambahan.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/28-install-extra-no.png" alt="No extra media" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 29</span>
+      <p>Pengaturan network mirror awal.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/29-select-mirror.png" alt="Select mirror" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 30</span>
+      <p>Melanjutkan instalasi tanpa network mirror terlebih dahulu.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/30-without-mirror.png" alt="Without mirror" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 31</span>
+      <p>Memilih <strong>No</strong> pada survei popularity-contest.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/31-popularity-contest.png" alt="Popularity contest No" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 32</span>
+      <p>Memilih paket <strong>standard system utilities</strong>.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/32-choose-software.png" alt="Standard system utilities" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 33</span>
+      <p>Memilih <strong>Yes</strong> untuk memasang GRUB boot loader.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/33-boot-loader.png" alt="Install GRUB" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 34</span>
+      <p>Memilih disk <code>/dev/sda</code> untuk instalasi GRUB.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/34-grub-boot.png" alt="GRUB /dev/sda" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 35</span>
+      <p>Instalasi selesai dan me-reboot VM.</p>
+      <figure>
+        <img src="assets/3-Debian_installasi/35-finish.png" alt="Instalasi selesai" loading="lazy">
+      </figure>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- BAGIAN 4 -->
+    <!-- ============================================================ -->
+    <h2 id="bagian-4">Bagian 4: Setup Awal Debian, Repositori &amp; Cloning VM</h2>
+
+    <div class="step">
+      <span class="step-badge">Langkah 1</span>
+      <p>Mengecek alamat IP pada interface jaringan VM Web Server.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>ip a</code></pre>
+      </div>
+      <figure>
+        <img src="assets/4-Debian_set_up/1-ip-a.png" alt="ip a output" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 2</span>
+      <p>Menguji koneksi internet dari VM dengan melakukan ping ke <code>moodle.org</code>.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>ping moodle.org</code></pre>
+      </div>
+      <figure>
+        <img src="assets/4-Debian_set_up/2-ping-moodle.org.png" alt="ping moodle.org" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 3</span>
+      <p>Mengisi daftar repositori network mirror resmi Debian di dalam file <code>/etc/apt/sources.list</code>.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>nano /etc/apt/sources.list</code></pre>
+      </div>
+      <figure>
+        <img src="assets/4-Debian_set_up/3-network-mirror-deb.png" alt="sources.list" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 4</span>
+      <p>Memperbarui indeks daftar paket dari repositori Debian.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>apt update</code></pre>
+      </div>
+      <figure>
+        <img src="assets/4-Debian_set_up/4-apt-update.png" alt="apt update" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 5</span>
+      <p>Mematikan VM Web Server lalu memilih menu <strong>Clone</strong> di VirtualBox.</p>
+      <figure>
+        <img src="assets/4-Debian_set_up/5-clone.png" alt="Clone VM" loading="lazy">
+      </figure>
+      <p>Mengubah nama hasil clone menjadi <code>db_server</code> dan memilih <strong>Full Clone</strong>.</p>
+      <figure>
+        <img src="assets/4-Debian_set_up/6-fully-clone.png" alt="Full Clone db_server" loading="lazy">
+      </figure>
+      <p>Membuka pengaturan Network Bridged Adapter pada <code>db_server</code> lalu melakukan <strong>Refresh MAC Address</strong> agar tidak sama dengan Web Server.</p>
+      <figure>
+        <img src="assets/4-Debian_set_up/7-refresh-mac-in-clone.png" alt="Refresh MAC Address" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 6</span>
+      <p>Mengubah alamat IP statis milik <code>db_server</code> menjadi <code>192.168.xx.3/29</code>.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>nano /etc/network/interfaces</code></pre>
+      </div>
+      <figure>
+        <img src="assets/4-Debian_set_up/8-change-ip-in-db.png" alt="Edit interfaces db_server" loading="lazy">
+      </figure>
+      <p>Memvalidasi perubahan alamat IP di <code>db_server</code> menggunakan perintah <code>ip a</code>.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>systemctl restart networking
+ip a</code></pre>
+      </div>
+      <figure>
+        <img src="assets/4-Debian_set_up/9-validate-ip.png" alt="Validasi IP db_server" loading="lazy">
+      </figure>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- BAGIAN 5 -->
+    <!-- ============================================================ -->
+    <h2 id="bagian-5">Bagian 5: Konfigurasi Database Server MariaDB</h2>
+
+    <div class="step">
+      <span class="step-badge">Langkah 1</span>
+      <p>Instalasi MariaDB dan mengubah <code>bind-address</code> dari <code>127.0.0.1</code> menjadi <code>0.0.0.0</code> agar database dapat diakses secara remote dari VM Web Server.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>apt install mariadb-server -y
+nano /etc/mysql/mariadb.conf.d/50-server.cnf</code></pre>
+      </div>
+      <figure>
+        <img src="assets/5-Db_server/1-bind-0000.png" alt="bind-address 0.0.0.0" loading="lazy">
+      </figure>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>systemctl restart mariadb</code></pre>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 2</span>
+      <p>Masuk ke konsol MariaDB, membuat database <code>moodle</code> dan memberikan hak akses penuh kepada <code>moodleuser</code> dari alamat IP Web Server.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>mysql -u root -p</code></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">sql</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>CREATE DATABASE moodle DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'moodleuser'@'192.168.3.2' IDENTIFIED BY '1';
+GRANT ALL PRIVILEGES ON moodle.* TO 'moodleuser'@'192.168.3.2';
+FLUSH PRIVILEGES;
+EXIT;</code></pre>
+      </div>
+      <figure>
+        <img src="assets/5-Db_server/2-db-configuration.png" alt="Database configuration" loading="lazy">
+      </figure>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- BAGIAN 6 -->
+    <!-- ============================================================ -->
+    <h2 id="bagian-6">Bagian 6: Konfigurasi Web Server, Instalasi &amp; Pengujian LMS Moodle</h2>
+
+    <h3 id="sub-6-1">6.1 Instalasi Paket Web Server &amp; Ekstraksi Source Code Moodle</h3>
+
+    <div class="step">
+      <span class="step-badge">Langkah 1</span>
+      <p>Instalasi Apache2, PHP beserta modul yang dibutuhkan, lalu mengunduh file arsip Moodle di dalam direktori <code>/var/www/html</code>.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>apt install apache2 mariadb-client php libapache2-mod-php php-mysql php-xml php-mbstring php-curl php-zip php-gd php-intl php-soap -y
+cd /var/www/html
+wget https://download.moodle.org/download.php/direct/stable503/moodle-latest-503.tgz</code></pre>
+      </div>
+      <figure>
+        <img src="assets/6-Web_server/1-moodle-tar.png" alt="Download moodle tgz" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 2</span>
+      <p>Mengekstrak arsip Moodle, memindahkan file <code>.tgz</code> ke <code>/etc</code>, mengeluarkan seluruh isi folder <code>moodle</code> ke <code>/var/www/html</code>, dan mengecek hasilnya dengan <code>ls</code>.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>tar -zxvf moodle-latest-503.tgz
+mv moodle-latest-503.tgz /etc
+mv moodle/* .
+ls</code></pre>
+      </div>
+      <figure>
+        <img src="assets/6-Web_server/2-moodle-folder.png" alt="Moodle folder contents" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 3</span>
+      <p>Membuat folder <code>/var/www/moodledata</code> dan mengatur hak akses (owner dan permission) untuk <code>www-data</code>.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>mkdir -p /var/www/moodledata
+chown -R www-data:www-data /var/www/html
+chown -R www-data:www-data /var/www/moodledata
+chmod -R 770 /var/www/moodledata
+chmod -R 755 /var/www/html</code></pre>
+      </div>
+      <figure>
+        <img src="assets/6-Web_server/3-moodle-permission.png" alt="Moodle permission" loading="lazy">
+      </figure>
+    </div>
+
+    <h3 id="sub-6-2">6.2 Konfigurasi VirtualHost Apache2 &amp; Parameter php.ini</h3>
+
+    <div class="step">
+      <span class="step-badge">Langkah 4</span>
+      <p>Mengubah arah <code>DocumentRoot</code> menjadi <code>/var/www/html/public</code>.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>nano /etc/apache2/sites-available/000-default.conf</code></pre>
+      </div>
+      <figure>
+        <img src="assets/6-Web_server/4-apache2-doc-root.png" alt="DocumentRoot Apache2" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 5</span>
+      <p>Menghapus tanda komentar (<code>;</code>) pada <code>max_input_vars</code> dan mengubah nilainya menjadi <code>5000</code>.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>nano /etc/php/8.2/apache2/php.ini</code></pre>
+      </div>
+      <figure>
+        <img src="assets/6-Web_server/5-php-max-input-vars.png" alt="max_input_vars 5000" loading="lazy">
+      </figure>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>systemctl restart apache2</code></pre>
+      </div>
+    </div>
+
+    <h3 id="sub-6-3">6.3 Instalasi Moodle Melalui Web Browser</h3>
+
+    <div class="step">
+      <span class="step-badge">Langkah 6</span>
+      <p>Membuka browser dan mengakses IP VM Web Server (<code>http://192.168.xx.2</code>), lalu memilih bahasa instalasi.</p>
+      <figure>
+        <img src="assets/6-Web_server/6-buka-moodle.png" alt="Buka Moodle di browser" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 7</span>
+      <p>Konfirmasi lokasi direktori Moodle dan <code>moodledata</code>, lalu klik <strong>Next</strong>.</p>
+      <figure>
+        <img src="assets/6-Web_server/7-moodle-directory.png" alt="Moodle directory" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 8</span>
+      <p>Memilih tipe driver database <strong>MariaDB (native/mariadb)</strong>.</p>
+      <figure>
+        <img src="assets/6-Web_server/8-database-type.png" alt="Database type MariaDB" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 9</span>
+      <p>Mengisi informasi koneksi database sesuai yang telah dibuat (Database host: IP <code>db_server</code>, Database name: <code>moodle</code>, Database user: <code>moodleuser</code>, Password: <code>1</code>).</p>
+      <figure>
+        <img src="assets/6-Web_server/9-database-config.png" alt="Database config" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 10</span>
+      <p>Menyetujui lisensi penggunaan Moodle (<strong>Continue</strong>).</p>
+      <figure>
+        <img src="assets/6-Web_server/10-license.png" alt="License agreement" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 11</span>
+      <p>Memastikan pengecekan sistem terpenuhi lalu klik <strong>Continue</strong>.</p>
+      <figure>
+        <img src="assets/6-Web_server/11-continue.png" alt="System check" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 12</span>
+      <p>Menunggu proses instalasi modul selesai lalu klik <strong>Continue</strong>.</p>
+      <figure>
+        <img src="assets/6-Web_server/12-installation-complete.png" alt="Installation complete" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 13</span>
+      <p>Mengisi nama admin, password, dan email admin untuk login utama.</p>
+      <figure>
+        <img src="assets/6-Web_server/13-admin.png" alt="Admin setup" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 14</span>
+      <p>Mengisi nama situs (Full site name dan Short name).</p>
+      <figure>
+        <img src="assets/6-Web_server/14-site-name.png" alt="Site name" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 15</span>
+      <p>Mengisi Support email dan No-reply address.</p>
+      <figure>
+        <img src="assets/6-Web_server/15-email-no-reply.png" alt="Email no-reply" loading="lazy">
+      </figure>
+    </div>
+
+    <h3 id="sub-6-4">6.4 Pengujian Pembuatan Course, User &amp; Enrolment</h3>
+
+    <div class="step">
+      <span class="step-badge">Langkah 16</span>
+      <p>Membuat course baru di Moodle.</p>
+      <figure>
+        <img src="assets/6-Web_server/16-make-course.png" alt="Buat course" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 17</span>
+      <p>Masuk ke menu <strong>Site administration &gt; Users &gt; Add a new user</strong>.</p>
+      <figure>
+        <img src="assets/6-Web_server/17-user.png" alt="Add new user menu" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 18</span>
+      <p>Mengisi Username dan Password untuk user baru.</p>
+      <figure>
+        <img src="assets/6-Web_server/18-new-user.png" alt="New user credentials" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 19</span>
+      <p>Mengisi First name, Last name, dan Email address pada halaman yang sama lalu menyimpan user.</p>
+      <figure>
+        <img src="assets/6-Web_server/19-new-user-2.png" alt="New user details" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 20</span>
+      <p>Tampilan hasil pembuatan user baru pada daftar pengguna.</p>
+      <figure>
+        <img src="assets/6-Web_server/20-created-user.png" alt="Created user list" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 21</span>
+      <p>Masuk ke <strong>Site administration &gt; Courses &gt; Manage courses and categories</strong> untuk memasukkan user ke dalam course.</p>
+      <figure>
+        <img src="assets/6-Web_server/21-user-regist.png" alt="Manage courses" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 22</span>
+      <p>Memilih course yang dibuat lalu membuka menu <strong>Enrol users</strong>.</p>
+      <figure>
+        <img src="assets/6-Web_server/22-user-enrolled.png" alt="Enrol users menu" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 23</span>
+      <p>Mencari user yang telah dibuat lalu melakukan Enrol ke dalam course.</p>
+      <figure>
+        <img src="assets/6-Web_server/23-enroll-user.png" alt="Enroll user to course" loading="lazy">
+      </figure>
+    </div>
+
+    <h3 id="sub-6-5">6.5 Konfigurasi Akses Eksternal (HTTP_HOST) &amp; Pengujian Port Forwarding</h3>
+
+    <div class="step">
+      <span class="step-badge">Langkah 24</span>
+      <p>Membuka file <code>/var/www/html/config.php</code> untuk menyesuaikan pengaturan alamat akses web (<code>wwwroot</code>).</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>nano /var/www/html/config.php</code></pre>
+      </div>
+      <figure>
+        <img src="assets/6-Web_server/24-config-php-ext.png" alt="Edit config.php" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 25</span>
+      <p>Mengubah baris <code>$CFG-&gt;wwwroot</code> menjadi dinamis agar Moodle dapat diakses dari jaringan lokal maupun eksternal.</p>
+      <figure>
+        <img src="assets/6-Web_server/25-ext-access.png" alt="wwwroot HTTP_HOST" loading="lazy">
+      </figure>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">php</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>$CFG-&gt;wwwroot = 'http://' .$_SERVER['HTTP_HOST'];</code></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>systemctl restart apache2</code></pre>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 26</span>
+      <p>Percobaan akses dari jaringan luar menggunakan alamat <code>http://10.10.10.3:9090</code> dan berhasil masuk ke tampilan halaman login Moodle.</p>
+      <figure>
+        <img src="assets/6-Web_server/26-ext-client-access.jpeg" alt="Akses eksternal port 9090" loading="lazy">
+      </figure>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- BAGIAN 7 -->
+    <!-- ============================================================ -->
+    <h2 id="bagian-7">Bagian 7: Otomatisasi Backup dengan Bash Script &amp; Cronjob</h2>
+
+    <h3 id="sub-7-1">7.1 Konfigurasi Otomatisasi Backup pada VM Web Server</h3>
+
+    <div class="step">
+      <span class="step-badge">Langkah 1</span>
+      <p>Membuat script backup web server (<code>backup_web.sh</code>) untuk mem-backup dan mengompresi file konfigurasi serta data web server ke direktori <code>/backup</code>.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>nano /usr/local/bin/backup_web.sh</code></pre>
+      </div>
+      <figure>
+        <img src="assets/7-Backup/1-web-backup-sh.png" alt="Script backup_web.sh" loading="lazy">
+      </figure>
+      <p>Memberikan izin eksekusi pada script backup lalu dijalankan manual untuk pengecekan.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>chmod +x /usr/local/bin/backup_web.sh
+/usr/local/bin/backup_web.sh</code></pre>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 2</span>
+      <p>Membuka konfigurasi penjadwalan cronjob (pilih <code>1</code> untuk editor <code>nano</code>) dan menambahkan baris penjadwalan otomatis untuk menjalankan <code>/usr/local/bin/backup_web.sh</code>.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>crontab -e</code></pre>
+      </div>
+      <figure>
+        <img src="assets/7-Backup/2-web-crontab.png" alt="Crontab web server" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 3</span>
+      <p>Mengecek isi direktori <code>/backup</code> untuk memastikan file arsip backup web server telah berhasil terbentuk.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>ls /backup</code></pre>
+      </div>
+      <figure>
+        <img src="assets/7-Backup/3-web-result.png" alt="Hasil backup web" loading="lazy">
+      </figure>
+    </div>
+
+    <h3 id="sub-7-2">7.2 Konfigurasi Otomatisasi Backup pada VM Database Server</h3>
+
+    <div class="step">
+      <span class="step-badge">Langkah 4</span>
+      <p>Membuat script backup database (<code>backup_db.sh</code>) untuk mem-backup database Moodle ke dalam direktori <code>/backup</code>.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>nano /usr/local/bin/backup_db.sh</code></pre>
+      </div>
+      <figure>
+        <img src="assets/7-Backup/4-db-backup-sh.png" alt="Script backup_db.sh" loading="lazy">
+      </figure>
+      <p>Memberikan izin eksekusi pada script backup database lalu dijalankan manual untuk pengecekan.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>chmod +x /usr/local/bin/backup_db.sh
+/usr/local/bin/backup_db.sh</code></pre>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 5</span>
+      <p>Membuka konfigurasi cronjob (pilih <code>1</code> untuk menggunakan editor <code>nano</code>) dan menambahkan jadwal cronjob otomatis untuk mengeksekusi <code>/usr/local/bin/backup_db.sh</code>.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>crontab -e</code></pre>
+      </div>
+      <figure>
+        <img src="assets/7-Backup/5-db-crontab.png" alt="Crontab db server" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="step">
+      <span class="step-badge">Langkah 6</span>
+      <p>Mengecek isi direktori <code>/backup</code> pada <code>db_server</code> untuk memvalidasi bahwa file hasil backup database sudah tersimpan.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">bash</span>
+          <button class="code-copy">Copy</button>
+        </div>
+        <pre><code>ls /backup</code></pre>
+      </div>
+      <figure>
+        <img src="assets/7-Backup/6-db-result.png" alt="Hasil backup database" loading="lazy">
+      </figure>
+    </div>
+
+  </main>
+</div>
+
+<!-- Lightbox Modal with Slideshow & Keyboard Navigation -->
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Penampil Gambar">
+  <button class="lightbox-btn lightbox-prev" aria-label="Gambar sebelumnya">&#10094;</button>
+  <div class="lightbox-content">
+    <img id="lightbox-img" src="" alt="">
+    <div id="lightbox-caption" class="lightbox-caption"></div>
+  </div>
+  <button class="lightbox-btn lightbox-next" aria-label="Gambar berikutnya">&#10095;</button>
+  <button class="lightbox-close" aria-label="Tutup penampil gambar">&times;</button>
+</div>
+
+<!-- Floating Back to Top Button -->
+<button id="back-to-top" class="back-to-top" aria-label="Kembali ke atas">&#8593;</button>
+
+<script src="script.js"></script>
+</body>
+</html>
